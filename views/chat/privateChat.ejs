@@ -1,0 +1,28 @@
+<div class="small-12 medium-6 column left">
+    <dl class="accordion" data-accordion>
+        <dd>
+            <a href=#p-<%= data.id %>>Nombre de los usuarios</a>
+
+            <div class="content active" id=p-<%= data.id %>>
+            <dl class="sub-nav">
+                <dd><input id=u-<%= data.id %> type=file name=files[]>Send a file</a></dd>
+                <dd><a href="#">Video</a></dd>
+                <dd><a href="#">Audio</a></dd>
+            </dl>
+                <div>
+                    <ul id=c-<%= data.id %> class='no-bullet scrollable'>
+                        
+                    </ul>
+                </div>
+                <div class='small-9 column'>
+                    <textArea id=t-<%= data.id %>></textArea>
+                </div>
+                <div class='small-3 column'>
+                    <button id=b-<%= data.id %>>Enviar</button>
+                </div>
+            </div>
+        </dd>
+    </dl>
+</div>
+
+

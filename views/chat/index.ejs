@@ -1,0 +1,54 @@
+<div id="myModal" class="reveal-modal tiny" data-reveal>
+  <h2 id='m-username'></h2>
+  
+  <button id='m-button'>Send request</button>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div class='small-12 medium-8 columns'>
+    <dl class="accordion" data-accordion>
+      <dd>
+        <a href="#chat">Chat online</a>
+        <div id="chat" class="content active">
+            <table>
+              <tr>
+                  <th>Username</th>
+                  <th>Botones</th>
+              </tr>
+              <% for(var i=0; i<list.length; i++){ %>
+                  <tr id=<%= list[i].id %>>
+                      <td><%= list[i].username %></td>
+                      <td class='show_profile'><a href='#' id=<%= list[i].id %>> Show profile </a></td>
+                  </tr>
+              <% } %>
+            </table>
+        </div>
+      </dd>
+    </dl>
+    <div id="privated-chats" >
+            
+    </div>
+</div>
+
+<div class='small-12 medium-4 columns'>
+    <dl class="accordion" data-accordion>
+      <dd>
+        <a href="#diccionario">Diccionario</a>
+        <div id="diccionario" class="content active">
+            Este es el diccionario
+        </div>
+      </dd>
+    </dl>
+
+    <dl class="accordion" data-accordion>
+      <dd>
+        <a href="#request">Peticiones</a>
+        <div id="request" class="content active">
+            Aqui estaran las peticiones
+        </div>
+      </dd>
+    </dl>
+</div>
+
+
+

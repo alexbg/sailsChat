@@ -1,0 +1,21 @@
+#js-alert{
+    font-size: 1.5em;
+}
+li>span{
+    display:none;
+}
+li:hover>span{
+    display:block;
+    //background-color: red;
+}
+#text-chat:hover{
+    background-color: Gainsboro;
+}
+.accordion{
+    //max-height: 50;
+}
+
+.scrollable{
+    height: 150px;
+    overflow-y: scroll;
+}
