@@ -1,6 +1,7 @@
 var language = {};
 
 $(window).ready(function(){
+    webrtc : 'undefined',
     
     language.showProfile = function(){
         $('.show_profile').off('click').on('click','a',function(event){

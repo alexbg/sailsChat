@@ -37,7 +37,7 @@ module.exports.sockets = {
                 console.log(user[0].username+' Preparado para destruir');
             });
             
-        },5000);
+        },10000);
         //console.log(session.user.destroy);
         
     }

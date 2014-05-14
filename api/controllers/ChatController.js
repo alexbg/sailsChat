@@ -84,6 +84,19 @@ module.exports = {
                         }
                     }); 
                 });
+                
+                Rooms.find({idCreator: req.session.user.idSession}).exec(function(err,petitions){
+                    console.log(petitions);
+                    petitions.forEach(function(value){
+
+                        if(value.petition == false){
+                           // guarda las salas en las que estaba
+                            roomsCreated.push({id: value.id,});
+                            // y le vuelve a meter en la sala
+                            sails.sockets.join(req.socket,value.id);
+                        }
+                    }); 
+                });
             });
             
             sails.sockets.emit(req.socket.id,'recovery',{petitions: petitionsCreated,rooms: roomsCreated});
@@ -120,8 +133,13 @@ module.exports = {
    * @returns {undefined}
    */
   message: function(req, res){
-      //console.log('HA LLEGADOOOOO');
-      sails.sockets.blast('prueba','Este es el mensaje de prueba'); 
+      
+      var data = {
+          message: req.param('message'),
+          type: req.param('type')
+      }
+      
+      sails.sockets.broadcast(req.param('id'),'info',data,req.socket);
   },
   
   updateTable: function(req, res){
@@ -296,6 +314,41 @@ module.exports = {
   upload: function(req, res){
       
       console.log('uploaddd');
+      
+  },
+  
+  // realiza una peticion al otro usuario
+  videoPetition: function(req, res){
+      console.log('ha entrado en petition e video');
+      
+      message = {
+          username: req.session.user.username,
+          id: req.param('id')
+      }
+      
+      sails.sockets.broadcast(req.param('id'),'video',message,req.socket);
+
+  },
+  
+  // acepta la peticion del video
+  acceptVideo: function(req, res){
+      
+     sails.sockets.broadcast(req.param('id'),'startVideo',{id: req.param('id')});
+     
+      
+  },
+  
+  // rechaza la peticion del video
+  rejectVideo: function(req, res){
+      
+      message = {
+          message: 'El usuario: '+req.session.user.username+' ha rechazado tu invitacion de video',
+          type: 'info'
+      }
+      
+      
+      
+     sails.sockets.broadcast(req.param('id'),'info',message,req.socket);
       
   }
   

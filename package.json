@@ -21,7 +21,13 @@
     "grunt-contrib-uglify": "~0.4.0",
     "grunt-contrib-cssmin": "~0.9.0",
     "grunt-contrib-less": "~0.10.0",
-    "grunt-contrib-coffee": "~0.10.1"
+    "grunt-contrib-coffee": "~0.10.1",
+    "webrtcsupport": "0.7.3",
+    "wildemitter": "0.0.5",
+    "getscreenmedia": "1.0.x",
+    "attachmediastream": "1.0.1",
+    "webrtc": "1.6.x",
+    "mockconsole": "0.0.1"
   },
   "scripts": {
     "start": "node app.js",

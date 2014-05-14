@@ -5,14 +5,20 @@
 
             <div class="content active" id=p-<%= data.id %>>
             <dl class="sub-nav">
-                <dd><input id=u-<%= data.id %> type=file name=files[]>Send a file</a></dd>
-                <dd><a href="#">Video</a></dd>
+                <dd><a href="#">Send a file</a></dd>
+                <dd><a href="#" id=v-<%= data.id %>>Video</a></dd>
                 <dd><a href="#">Audio</a></dd>
+                <dd><a href="#" id=close-<%= data.id %>>Close</a></dd>
             </dl>
-                <div>
+                <div class='small-12 medium-8 column left'>
                     <ul id=c-<%= data.id %> class='no-bullet scrollable'>
                         
                     </ul>
+                </div>
+                <div class='small-12 medium-4 column left'>
+                    <div class="flex-video">
+                        <div id='remote-<%= data.id %>'></div>
+                    </div>
                 </div>
                 <div class='small-9 column'>
                     <textArea id=t-<%= data.id %>></textArea>

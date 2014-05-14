@@ -19,3 +19,8 @@ li:hover>span{
     height: 150px;
     overflow-y: scroll;
 }
+
+.infoInChat{
+    color:burlywood;
+    background-color:lightcyan;
+}

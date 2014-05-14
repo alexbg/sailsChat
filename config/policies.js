@@ -31,7 +31,10 @@ module.exports.policies = {
       accept: 'sessionAuth',
       getPrivateRoom: 'sessionAuth',
       send: 'sessionAuth',
-      upload: 'sessionAuth'
+      upload: 'sessionAuth',
+      videoPetition: 'sessionAuth',
+      acceptVideo: 'sessionAuth',
+      rejectVideo: 'sessionAuth'
   }
   /*
 	// Here's an example of adding some policies to a controller

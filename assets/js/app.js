@@ -170,13 +170,109 @@
                     }
                     $('#t-'+value.id).val('');
                 });
-            }); 
+            });
+            
+            //enlace de video evento click
+            
+            
+            
+            $('#v-'+value.id).on('click',function(){
+                
+                socket.post('/chat/videoPetition',{id: value.id});
+                
+                /*webrtc = new SimpleWebRTC({
+                   
+                    // the id/element dom element that will hold remote videos
+
+                    remoteVideosEl: 'remote-'+value.id,
+                    debug: false,
+                    url: 'http://192.168.1.33:8888',
+                    // immediately ask for camera access
+                    autoRequestMedia: true
+                });
+                
+                // Cuando esta preparada para llamar, te conectas
+                webrtc.on('readyToCall', function () {
+                    // you can name it anything
+                    
+                    webrtc.joinRoom('remote-'+value.id);
+                    
+                });*/
+                
+            });
+            
+            // cierra la conexion de ambos, al dejar la habitacion
+            $('#close-'+value.id).on('click',function(event){
+                
+                alert('cerrar');
+                // debo la habitacion
+                webrtc.leaveRoom();
+                
+                
+            });
+            
             });
             
              //console.log(data);
-            language.upload(value.id);
+            //language.upload(value.id);
             
         });
+        
+        // muestra el mensaje de que alguien ha querido realizar una peticion de video
+        socket.on('video',function(data){
+            console.log(language);
+            
+            if(typeof language.webrtc == 'undefined'){
+                $('#c-'+data.id).append(
+                        '<li class="infoInChat">El usuario: <strong>'+
+                        data.username+'</strong> ha realizado una peticion de video \n\
+                        <a id="av-'+data.id+'">Aceptar</a><a id="rv-'+data.id+'">Rechazar</a></li>');
+
+                $('#av-'+data.id).on('click',function(event){
+
+                    socket.post('/chat/acceptVideo',{id: data.id});
+
+                });
+
+                $('#rv-'+data.id).on('click',function(event){
+
+                    socket.post('/chat/rejectVideo',{id: data.id});
+
+                    // Elimino los eventos de aceptar y rechazar video
+                    $('#rv-'+data.id).off('click');
+                    $('#av-'+data.id).off('click');
+
+                });
+            }
+            else{
+                socket.post('/chat/message',{id: data.id,message: 'El usuario no puede iniciar el video',type: 'info'})
+            }
+            
+        });
+        
+        // Cuando se lo pidan, inicia un video peer to peer
+        socket.on('startVideo',function(data){
+                alert('entra en start video');
+                language.webrtc = new SimpleWebRTC({
+                   
+                    // the id/element dom element that will hold remote videos
+
+                    remoteVideosEl: 'remote-'+data.id,
+                    debug: false,
+                    url: 'http://192.168.1.33:8888',
+                    // immediately ask for camera access
+                    autoRequestMedia: true
+                });
+                
+                // Cuando esta preparada para llamar, te conectas
+                language.webrtc.on('readyToCall', function () {
+                    // you can name it anything
+                    
+                    language.webrtc.joinRoom('remote-'+data.id);
+                    
+                });
+            
+        })
         
         $(document).foundation();
     });
