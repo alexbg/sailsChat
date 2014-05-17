@@ -32,7 +32,8 @@
 
     });
 
-    // permite generar una session con este usuario
+    // permite generar una session con este usuario y comprobar si tiene una 
+    // sesion ya disponible
     socket.post('/chat/insert');
     //console.log(socket);
     ///////////////////////////////////////////////////////////
@@ -113,7 +114,25 @@
                     }
                     $('#t-'+data.id).val('');
                 });
-            })
+            });
+            
+            
+            //enlace de video evento click
+            $('#v-'+data.id).on('click',function(){
+
+                socket.post('/chat/videoPetition',{id: data.id});
+
+            });
+
+            // cierra la conexion de ambos, al dejar la habitacion
+            $('#close-'+data.id).on('click',function(event){
+
+                alert('cerrar');
+                // cierro la habitacion
+                language.webrtc.leaveRoom();
+                
+            });
+
             console.log(data);
             $(document).foundation();
                 
@@ -137,7 +156,7 @@
        
             // pone un evento al boton de rechazar
             $('#r-'+value.id).on('click',function(event){
-                alert('entra en rechazar');
+                //alert('entra en rechazar');
                 socket.post('/chat/reject',{id: value.id},function(data){
                    $('#room-'+data.id).remove();
                    language.value($('#js-alert'),'has rechazado al invitacion','info');
@@ -146,7 +165,7 @@
 
             // pone un evento al boton de aceptar
             $('#a-'+value.id).on('click',function(event){
-                alert('entraaa en aceptar')
+                //alert('entraaa en aceptar')
                 socket.post('/chat/accept',{id: value.id},function(data){
                    $('#room-'+data.id).remove();
                    language.value($('#js-alert'),'has aceptado la invitacion','info');
@@ -154,68 +173,44 @@
             }); 
         });
         
-        
+        // Pone las habitaccion en el que esta el usuario
         data.rooms.forEach(function(value,key){
            console.log('habitacioness');
-            $.get('/chat/getPrivateRoom',{info: value},function(room){
-            // añade el chat a la pagina
-            $('#privated-chats').append(room);
-            // configura un evento de click al boton enviar
-            $('#b-'+value.id).on('click',function(event){
-                
-                var text = $('#t-'+value.id).val();
-                socket.post('/chat/send',{room: value.id, message: text},function(sended){
-                    if(!sended){
-                        language.message($('#js-alert'),'No se ha podido enviar el mensaje','warning');
-                    }
-                    $('#t-'+value.id).val('');
-                });
-            });
-            
-            //enlace de video evento click
-            
-            
-            
-            $('#v-'+value.id).on('click',function(){
-                
-                socket.post('/chat/videoPetition',{id: value.id});
-                
-                /*webrtc = new SimpleWebRTC({
-                   
-                    // the id/element dom element that will hold remote videos
+                $.get('/chat/getPrivateRoom',{info: value},function(room){
+                // añade el chat a la pagina
+                $('#privated-chats').append(room);
+                // configura un evento de click al boton enviar
+                $('#b-'+value.id).on('click',function(event){
 
-                    remoteVideosEl: 'remote-'+value.id,
-                    debug: false,
-                    url: 'http://192.168.1.33:8888',
-                    // immediately ask for camera access
-                    autoRequestMedia: true
+                    var text = $('#t-'+value.id).val();
+                    socket.post('/chat/send',{room: value.id, message: text},function(sended){
+                        if(!sended){
+                            language.message($('#js-alert'),'No se ha podido enviar el mensaje','warning');
+                        }
+                        $('#t-'+value.id).val('');
+                    });
                 });
-                
-                // Cuando esta preparada para llamar, te conectas
-                webrtc.on('readyToCall', function () {
-                    // you can name it anything
-                    
-                    webrtc.joinRoom('remote-'+value.id);
-                    
-                });*/
-                
-            });
-            
-            // cierra la conexion de ambos, al dejar la habitacion
-            $('#close-'+value.id).on('click',function(event){
-                
-                alert('cerrar');
-                // debo la habitacion
-                webrtc.leaveRoom();
-                
-                
-            });
+
+                //enlace de video evento click
+
+                $('#v-'+value.id).on('click',function(){
+
+                    socket.post('/chat/videoPetition',{id: value.id});
+
+                });
+
+                // cierra la conexion de ambos, al dejar la habitacion
+                $('#close-'+value.id).on('click',function(event){
+
+                    alert('cerrar');
+                    // debo la habitacion
+                    language.webrtc.leaveRoom();
+
+
+                });
             
             });
-            
-             //console.log(data);
-            //language.upload(value.id);
-            
+             
         });
         
         // muestra el mensaje de que alguien ha querido realizar una peticion de video
@@ -276,6 +271,14 @@
         
         $(document).foundation();
     });
+    
+    
+    
+    
+    
+    
+    
+    
     
   });
 
