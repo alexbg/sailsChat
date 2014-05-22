@@ -132,8 +132,8 @@
                 language.webrtc.leaveRoom();
                 
             });
-
-            console.log(data);
+            
+            language.upload(data.id);
             $(document).foundation();
                 
         })
@@ -208,6 +208,9 @@
 
 
                 });
+                
+                language.upload(value.id);
+                language.prueba();
             
             });
              

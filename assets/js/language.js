@@ -43,10 +43,12 @@ $(window).ready(function(){
     }
     
     language.upload = function(id){
-        $('#u-'+id).fileupload({
+        
+        $('#prueba').fileupload({
             dataType: 'json',
             url:'/chat/upload',
             autoUpload : true,
+            maxTimeToBuffer: 2000,
             done: function (e, data) {
                 alert('terminado');
             },
@@ -57,13 +59,14 @@ $(window).ready(function(){
                 alert('empieza a subir');
             },
             progressall: function (e, data) {
-                alert('progresando');
+                //alert('progresando');
             }
         });
-        
     }
     
-    
+    language.prueba = function(){
+        alert('prueba');
+    }
     //ejecucion funciones
     language.showProfile();
 });

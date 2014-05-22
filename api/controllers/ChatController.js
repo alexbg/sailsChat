@@ -314,6 +314,8 @@ module.exports = {
   upload: function(req, res){
       
       console.log('uploaddd');
+      console.log(req.files.prueba);
+      
       
   },
   

@@ -5,7 +5,9 @@
 
             <div class="content active" id=p-<%= data.id %>>
             <dl class="sub-nav">
-                <dd><a href="#">Send a file</a></dd>
+                <dd>
+                    <input id='prueba' type="file" name="files[]" data-url="/chat/upload" multiple>
+                </dd>
                 <dd><a href="#" id=v-<%= data.id %>>Video</a></dd>
                 <dd><a href="#">Audio</a></dd>
                 <dd><a href="#" id=close-<%= data.id %>>Close</a></dd>
